@@ -11,7 +11,7 @@ const useFetch = () => {
         setLoad(true);
         let pokemon = [];
 
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i < 40; i++) {
           const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
           const result = await fetch(url);
           if (!result.ok) throw new Error(result.status);

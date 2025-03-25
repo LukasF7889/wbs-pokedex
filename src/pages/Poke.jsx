@@ -21,6 +21,12 @@ const Poke = () => {
         <img className="min-w-xl" src={poke.sprites.front_default} />
         <p className="uppercase font-bold">{poke.name}</p>
         <p>Weight: {poke.weight}</p>
+        <p>
+          Type:{" "}
+          {poke.types.map((e) => (
+            <span className="rounded-full bg-amber-200 px-2 py-1">{`${e.type.name} `}</span>
+          ))}
+        </p>
       </div>
     </>
   );
