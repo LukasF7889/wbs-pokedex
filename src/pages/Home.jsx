@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-5">
+      <div className="mx-auto grid grid-cols-1 max-w-[90vw]  md:grid-cols-4 lg:grid-cols-5 gap-4 mt-[5rem] mb-[5rem]">
         {data.map((e, index) => (
           <div
             className="bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] flex flex-col justify-center text-center"
