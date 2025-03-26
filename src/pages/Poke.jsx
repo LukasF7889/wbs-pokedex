@@ -4,11 +4,15 @@ import { useSingleFetch } from "../hooks/useFetch";
 
 const Poke = () => {
   const { id } = useParams();
+  // Fetch a single pokemon via useSingleFetch
   const { poke, load, error } = useSingleFetch(id);
+  // This will be used to handle pokemon animation
   const [playAnimation, setPlayAnimation] = useState(false);
 
+  // useEffect to make sure this code will be run when the animation plays
   useEffect(() => {
     if (playAnimation) {
+      //set Animation to false (=disable animation) after 500 ms
       const timer = setTimeout(() => {
         setPlayAnimation(false);
       }, 500);
@@ -16,12 +20,15 @@ const Poke = () => {
     }
   }, [playAnimation]);
 
+  //load and error handling
   if (load) return <div>LOADING...</div>;
   if (error) return <div>OH NO! ERROR! {error}</div>;
   if (!poke) return <div>Pokemon not found...</div>;
 
+  //get the sound url of the pokemon
   const sound = poke.cries.latest;
 
+  //this function will be triggered when clicking on a pokemon and play the sound & start the animation
   const playAudio = (sound) => {
     new Audio(sound).play();
     setPlayAnimation(true);
@@ -40,6 +47,7 @@ const Poke = () => {
       >
         <img
           onClick={() => playAudio(sound)}
+          // add class "Pokeshake" only as long as the animation runs
           className={`w-[25vw] ${playAnimation ? "pokeShake" : ""}`}
           src={poke.sprites.front_default}
         />
@@ -47,7 +55,7 @@ const Poke = () => {
         <p className="mt-2 mb-4">
           <span>{`Weight: ${poke.weight} | `}</span>
           <span>
-            Type:{" "}
+            Type: {/* map over Pokemon types */}
             {poke.types.map((e, index) => (
               <span
                 key={index}
@@ -70,6 +78,7 @@ const Poke = () => {
                   <div
                     className="bg-blue-500 h-2 rounded-full"
                     style={{
+                      // display stat bars, make sure bars don't exceed 100%
                       width: `${Math.min(100, (stat.base_stat / 255) * 100)}%`,
                     }}
                   ></div>

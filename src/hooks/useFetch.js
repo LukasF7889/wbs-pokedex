@@ -9,8 +9,10 @@ const useFetch = () => {
     async function fetchData() {
       try {
         setLoad(true);
+        // pokemon is an empty array that will be filled with all the fetched data
         let pokemon = [];
 
+        //fetch x pokemon and push each data into the pokemon array
         for (let i = 1; i < 40; i++) {
           const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
           const result = await fetch(url);
@@ -24,6 +26,7 @@ const useFetch = () => {
           pokemon.push(json);
         }
 
+        //after fetching all pokemon setData
         setData(pokemon);
         console.log(pokemon);
       } catch (error) {
@@ -36,9 +39,11 @@ const useFetch = () => {
     fetchData();
   }, []);
 
+  //return data, load and error messages so it can be handled in the Home.jsx
   return { data, load, error };
 };
 
+//this one needs a specific id and will only fetch this specific pokemon
 const useSingleFetch = (id) => {
   const [poke, setPoke] = useState(null);
   const [load, setLoad] = useState(true);

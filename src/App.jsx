@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import Layout from "./Layout/Layout";
+import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import Poke from "./pages/Poke";
 
@@ -8,6 +8,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        {/* Dynamic Routing */}
         <Route path="/poke/:id" element={<Poke />} />
       </Route>
     </Routes>
