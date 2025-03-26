@@ -1,13 +1,31 @@
 import { useParams, Link } from "react-router";
+import { useState, useEffect } from "react";
 import { useSingleFetch } from "../hooks/useFetch";
 
 const Poke = () => {
   const { id } = useParams();
   const { poke, load, error } = useSingleFetch(id);
+  const [playAnimation, setPlayAnimation] = useState(false);
+
+  useEffect(() => {
+    if (playAnimation) {
+      const timer = setTimeout(() => {
+        setPlayAnimation(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [playAnimation]);
 
   if (load) return <div>LOADING...</div>;
   if (error) return <div>OH NO! ERROR! {error}</div>;
   if (!poke) return <div>Pokemon not found...</div>;
+
+  const sound = poke.cries.latest;
+
+  const playAudio = (sound) => {
+    new Audio(sound).play();
+    setPlayAnimation(true);
+  };
 
   return (
     <div className="mt-[5rem] mb-[5rem]">
@@ -17,22 +35,31 @@ const Poke = () => {
       >
         Go back
       </Link>
-      <div className="bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] max-w-[50vw] mx-auto flex flex-col justify-center items-center text-center">
-        <img className="w-[25vw]" src={poke.sprites.front_default} />
+      <div
+        className={`bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] max-w-[50vw] mx-auto flex flex-col justify-center items-center text-center`}
+      >
+        <img
+          onClick={() => playAudio(sound)}
+          className={`w-[25vw] ${playAnimation ? "pokeShake" : ""}`}
+          src={poke.sprites.front_default}
+        />
         <p className="uppercase font-bold text-2xl">{poke.name}</p>
-        <p>Weight: {poke.weight}</p>
-        <p>
-          Type:{" "}
-          {poke.types.map((e, index) => (
-            <span
-              key={index}
-              className="rounded-full bg-amber-200 px-2 py-1 italic"
-            >{`${e.type.name} `}</span>
-          ))}
+        <p className="mt-2 mb-4">
+          <span>{`Weight: ${poke.weight} | `}</span>
+          <span>
+            Type:{" "}
+            {poke.types.map((e, index) => (
+              <span
+                key={index}
+                className="rounded-full bg-amber-200 px-3 py-1 mx-1 italic"
+              >{`${e.type.name} `}</span>
+            ))}
+          </span>
         </p>
-        <div className="mt-2 w-full px-12">
-          <h3 className="text-left font-semibold">Stats</h3>
-          <div>
+        <div className="collapse collapse-plus border-base-300 border bg-amber-50">
+          <input type="checkbox" />
+          <h3 className="collapse-title font-semibold  text-black">Stats</h3>
+          <div className="collapse-content text-sm text-black">
             {poke.stats.map((stat, index) => (
               <div
                 key={index}
