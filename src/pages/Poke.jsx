@@ -43,7 +43,7 @@ const Poke = () => {
         Go back
       </Link>
       <div
-        className={`bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] max-w-[50vw] mx-auto flex flex-col justify-center items-center text-center`}
+        className={`bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] max-w-[50vw] mx-auto flex flex-col justify-center items-center text-center lg:max-w-[40vw] 2xl:max-w-[20vw]`}
       >
         <img
           onClick={() => playAudio(sound)}

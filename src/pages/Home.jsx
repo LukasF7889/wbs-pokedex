@@ -9,11 +9,11 @@ const Home = () => {
 
   return (
     <>
-      <div className="mx-auto grid grid-cols-1 max-w-[90vw]  md:grid-cols-4 lg:grid-cols-5 gap-4 mt-[5rem] mb-[5rem]">
+      <div className="mx-auto grid grid-cols-2 max-w-[90vw] md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-8 gap-4 mt-[5rem] mb-[5rem]">
         {/* Map over the data and display as cards */}
         {data.map((e, index) => (
           <div
-            className="bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] flex flex-col justify-center text-center"
+            className="bg-white text-gray-800 shadow-2xl rounded-2xl p-4 min-w-[15vw] 2xl:min-w-[5vw]  flex flex-col justify-center text-center"
             key={index}
           >
             <img src={e.sprites.front_default}></img>
